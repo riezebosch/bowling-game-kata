@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Tests
@@ -6,21 +7,41 @@ namespace Tests
     public class Tests
     {
         [Fact]
-        public void OpenFrame_Score_Sum() 
+        public void OpenFrame_Score_Sum()
         {
-            var first = 3;
-            var second = 2;
+            var frame = new OpenFrame(3, 2);
 
-            var score = first + second;
+            Assert.Equal(5, frame.Score());
+        }
 
-            Assert.Equal(5, score);
+        class OpenFrame
+        {
+            readonly int _a, _b;
+            public OpenFrame(int a, int b)
+            {
+                _a = a;
+                _b = b;
+            }
+            
+            public int Score()
+            {
+                return _a + _b;
+            }
         }
 
         [Fact]
         public void SingleStrike_Score_10()
         {
-            var score = 10;
-            Assert.Equal(10, score);
+            var frame = new Strike();
+            Assert.Equal(10, frame.Score());
+        }
+
+        private class Strike
+        {
+            public int Score()
+            {
+                return 10;
+            }
         }
     }
 }
