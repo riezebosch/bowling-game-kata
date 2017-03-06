@@ -16,14 +16,15 @@ namespace Tests
 
         class OpenFrame : IFrame
         {
-            readonly int _a, _b;
+            public int First { get; }
+            public int Second { get; }
             public OpenFrame(int a, int b)
             {
-                _a = a;
-                _b = b;
+                First = a;
+                Second = b;
             }
             
-            public int Score => _a + _b;
+            public int Score => First + Second;
         }
 
         [Fact]
@@ -69,7 +70,23 @@ namespace Tests
             Assert.Equal(30, frame.Score);
         }
 
+        [Fact]
+        public void SingleSpare()
+        {
+            var frame = new Spare(2, 8);
+            Assert.Equal(10, frame.Score);
+        }
 
+        [Fact]
+        public void SpareWithOpenFrame()
+        {
+            var frame = new Spare(2, 8)
+            {
+                Next = new OpenFrame(1,1)
+            };
+
+            Assert.Equal(11, frame.Score);
+        }
 
         private class Strike : IFrame
         {
@@ -88,11 +105,41 @@ namespace Tests
                     return score;    
                 }
             }
+
+            public int First => 10;
         }
 
         private interface IFrame
         {
             int Score { get; }
+            int First { get; }
+        }
+
+        private class Spare
+        {
+            public int First { get; }
+            public int Second { get; }
+            public Spare(int a, int b)
+            {
+                First = a;
+                Second = b;
+            }
+
+            public int Score
+            {
+                get
+                {
+                    int score = 10;
+                    if (Next != null)
+                    {
+                        score += Next.First;
+                    }
+
+                    return score;
+                }
+            }
+
+            public IFrame Next { get; set; }
         }
     }
 }
