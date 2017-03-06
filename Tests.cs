@@ -36,12 +36,28 @@ namespace Tests
             Assert.Equal(10, frame.Score());
         }
 
+        [Fact]
+        public void StrikeNextOpenFrame_Score_Sum()
+        {
+            var frame = new Strike();
+            frame.Next = new OpenFrame(1, 1);
+
+            Assert.Equal(12, frame.Score());
+        }
+
         private class Strike
         {
+            public OpenFrame Next { get; set; }
+
             public int Score()
             {
-                return 10;
-            }
+                int score = 10;
+                if (Next != null)
+                {
+                    score += Next.Score();
+                }
+
+                return score;            }
         }
     }
 }
