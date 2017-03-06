@@ -11,7 +11,7 @@ namespace Tests
         {
             var frame = new OpenFrame(3, 2);
 
-            Assert.Equal(5, frame.Score());
+            Assert.Equal(5, frame.Score);
         }
 
         class OpenFrame : IFrame
@@ -23,35 +23,50 @@ namespace Tests
                 _b = b;
             }
             
-            public int Score()
-            {
-                return _a + _b;
-            }
+            public int Score => _a + _b;
         }
 
         [Fact]
         public void SingleStrike_Score_10()
         {
             var frame = new Strike();
-            Assert.Equal(10, frame.Score());
+            Assert.Equal(10, frame.Score);
         }
 
         [Fact]
         public void StrikeNextOpenFrame_Score_Sum()
         {
-            var frame = new Strike();
-            frame.Next = new OpenFrame(1, 1);
+            var frame = new Strike
+            {
+                Next = new OpenFrame(1, 1)
+            };
 
-            Assert.Equal(12, frame.Score());
+            Assert.Equal(12, frame.Score);
         }
 
         [Fact]
         public void StrikeNextStrike_Score_Sum()
         {
-            var frame = new Strike();
-            frame.Next = new Strike();
+            var frame = new Strike
+            {
+                Next = new Strike()
+            };
 
-            Assert.Equal(20, frame.Score());
+            Assert.Equal(20, frame.Score);
+        }
+
+        [Fact]
+        public void TripleStrikeScore()
+        {
+            var frame = new Strike()
+            {
+                Next = new Strike 
+                {
+                    Next = new Strike()
+                }
+            };
+            
+            Assert.Equal(30, frame.Score);
         }
 
 
@@ -60,20 +75,24 @@ namespace Tests
         {
             public IFrame Next { get; set; }
 
-            public int Score()
+            public int Score
             {
-                int score = 10;
-                if (Next != null)
+                get
                 {
-                    score += Next.Score();
-                }
+                    int score = 10;
+                    if (Next != null)
+                    {
+                        score += Next.Score;
+                    }
 
-                return score;            }
+                    return score;    
+                }
+            }
         }
 
         private interface IFrame
         {
-            int Score();
+            int Score { get; }
         }
     }
 }
