@@ -14,7 +14,7 @@ namespace Tests
             Assert.Equal(5, frame.Score());
         }
 
-        class OpenFrame
+        class OpenFrame : IFrame
         {
             readonly int _a, _b;
             public OpenFrame(int a, int b)
@@ -45,9 +45,20 @@ namespace Tests
             Assert.Equal(12, frame.Score());
         }
 
-        private class Strike
+        [Fact]
+        public void StrikeNextStrike_Score_Sum()
         {
-            public OpenFrame Next { get; set; }
+            var frame = new Strike();
+            frame.Next = new Strike();
+
+            Assert.Equal(20, frame.Score());
+        }
+
+
+
+        private class Strike : IFrame
+        {
+            public IFrame Next { get; set; }
 
             public int Score()
             {
@@ -58,6 +69,11 @@ namespace Tests
                 }
 
                 return score;            }
+        }
+
+        private interface IFrame
+        {
+            int Score();
         }
     }
 }
