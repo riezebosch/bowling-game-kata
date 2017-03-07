@@ -91,14 +91,27 @@ namespace Tests
          [Fact]
         public void PerfectGameScore()
         {
-            IFrame frame = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new BonusStrike { Next = new BonusStrike () } } } } } } } } } } };
+            IFrame frame = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new BonusStrike { Next = new BonusStrike() } } } } } } } } } } };
+            int score = CalculateScore(frame);
+            Assert.Equal(300, score);
+        }
+
+        private static int CalculateScore(IFrame frame)
+        {
             int score = 0;
             while (frame != null)
             {
                 score += frame.Points;
                 frame = frame.Next;
             }
-            Assert.Equal(300, score);
+
+            return score;
+        }
+
+        [Fact]
+        public void GameEndsWithBonusFrame()
+        {
+            
         }
 
         [Fact]
