@@ -5,36 +5,17 @@ namespace Tests
 {
     public class OpenFrameTests
     {
-        [Fact]
-        public void OpenFrameTotalExceeds10Pins()
+        [Theory]
+        [InlineData(9, 2)]
+        [InlineData(-1, 0)]
+        [InlineData(3, -1)]
+        [InlineData(11, 0)]
+        [InlineData(0, 11)]
+        public void OpenFrameBoundaries(int pins1, int pins2)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(9, 2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(pins1, pins2));
         }
-
-        [Fact]
-        public void OpenFrameNegativeNumber()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(-1, 0));
-        }
-
-        [Fact]
-        public void OpenFrameSecondThrowNegativeNumber()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(3, -1));
-        }
-
-        [Fact]
-        public void OpenFrameFirstThrowMoreThan10()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(11, 0));
-        }
-
-        [Fact]
-        public void OpenFrameSecondThrowMoreThan10()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(0, 11));
-        }
-
+      
         [Fact]
         public void OpenFrameTotal10Throws()
         {

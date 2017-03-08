@@ -30,16 +30,12 @@ namespace Tests
             Assert.Equal(15, frame.Points);
         }
 
-        [Fact]
-        public void SpareFirstRollMax9()
+        [Theory]
+        [InlineData(10)]
+        [InlineData(-1)]
+        public void SpareBoundaries(int pins)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Spare(10));
-        }
-
-         [Fact]
-        public void SpareFirstRollMin0()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Spare(-1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Spare(pins));
         }
     }
 }
