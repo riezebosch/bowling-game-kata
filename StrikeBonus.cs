@@ -2,7 +2,7 @@ using System;
 
 namespace Tests
 {
-    public class StrikeBonus : IFrame
+    public class StrikeBonus : IBonusFrame
     {
         public StrikeBonus(int pins1, int pins2)
         {

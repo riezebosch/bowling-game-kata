@@ -1,6 +1,6 @@
 namespace Tests
 {
-    public class SpareBonus : IFrame
+    public class SpareBonus : IBonusFrame
     {
         public SpareBonus(int pins)
         {
