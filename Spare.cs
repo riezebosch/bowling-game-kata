@@ -1,3 +1,5 @@
+using System;
+
 namespace Tests
 {
     public class Spare : IFrame
@@ -9,6 +11,10 @@ namespace Tests
         public IFrame Next { get; set; }
         public Spare(int a)
         { 
+            if (a < 0 || a >= 10)
+            {
+                throw new ArgumentOutOfRangeException(nameof(a));
+            }
             FirstRoll = a;
         }
 

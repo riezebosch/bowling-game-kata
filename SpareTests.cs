@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace Tests
@@ -27,6 +28,18 @@ namespace Tests
         {
             var frame = new Spare(2) { Next = new SpareBonus(5) };
             Assert.Equal(15, frame.Points);
+        }
+
+        [Fact]
+        public void SpareFirstRollMax9()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Spare(10));
+        }
+
+         [Fact]
+        public void SpareFirstRollMin0()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Spare(-1));
         }
     }
 }
