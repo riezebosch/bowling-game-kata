@@ -38,7 +38,8 @@ namespace Tests
         [Fact]
         public void OpenFrameTotal10Throws()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(7, 3));
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => new OpenFrame(7, 3));
+            Assert.Contains("Spare", ex.Message);
         }
     }
 }

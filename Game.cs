@@ -5,6 +5,7 @@ namespace Tests
     public class Game
     {
         private IFrame first;
+        private IFrame last;
 
         public int CalculateScore()
         {
@@ -20,9 +21,18 @@ namespace Tests
             return score;
         }
 
-        public void Add(IFrame frame)
+        public Game Add(IFrame frame)
         {
-            this.first = frame;
+            if (first == null)
+            {
+                first = last = frame;
+            }
+            else
+            {
+                last = last.Next = frame;
+            }
+
+            return this;
         }
     }
 }

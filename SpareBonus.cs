@@ -2,9 +2,9 @@ namespace Tests
 {
     public class SpareBonus : IFrame
     {
-        public SpareBonus(int v)
+        public SpareBonus(int pins)
         {
-            FirstRoll = v;
+            FirstRoll = pins;
         }
 
         public int Points => 0;
@@ -13,6 +13,6 @@ namespace Tests
 
         public int NextRoll => 0;
 
-        public IFrame Next => null;
+        public IFrame Next { get; set; }
     }
 }

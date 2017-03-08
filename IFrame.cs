@@ -6,6 +6,6 @@ namespace Tests
         int FirstRoll { get; }
         int NextRoll { get; }
 
-        IFrame Next { get; }
+        IFrame Next { get; set; }
     }
 }

@@ -7,30 +7,30 @@ namespace Tests
         public int FirstRoll { get; }
         public int NextRoll { get; }
 
-        public OpenFrame(int a, int b)
+        public OpenFrame(int pins1, int pins2)
         {
-            if (a < 0)
+            if (pins1 < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(a));
+                throw new ArgumentOutOfRangeException(nameof(pins1));
             }
 
-            if (b < 0)
+            if (pins2 < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(b));
+                throw new ArgumentOutOfRangeException(nameof(pins2));
             }
 
-            if (a + b == 10)    
+            if (pins1 + pins2 == 10)    
             {
-                throw new ArgumentOutOfRangeException("use a Spare");
+                throw new ArgumentOutOfRangeException("that's a Spare");
             }
 
-            if (a + b > 10)
+            if (pins1 + pins2 > 10)
             {
-                throw new ArgumentOutOfRangeException(nameof(b));
+                throw new ArgumentOutOfRangeException(nameof(pins2));
             }
 
-            FirstRoll = a;
-            NextRoll = b;
+            FirstRoll = pins1;
+            NextRoll = pins2;
         }
         
         public int Points => FirstRoll + NextRoll;

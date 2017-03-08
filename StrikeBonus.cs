@@ -1,11 +1,23 @@
+using System;
+
 namespace Tests
 {
     public class StrikeBonus : IFrame
     {
-        public StrikeBonus(int a, int b)
+        public StrikeBonus(int pins1, int pins2)
         {
-            FirstRoll = a;
-            NextRoll = b;
+            if (pins1 < 0 || pins1 > 10)
+            {
+                throw new ArgumentOutOfRangeException(nameof(pins1));
+            }
+
+            if (pins2 < 0 || pins2 > 10)
+            {
+                throw new ArgumentOutOfRangeException(nameof(pins1));
+            }
+
+            FirstRoll = pins1;
+            NextRoll = pins2;
         }
 
         public int Points => 0;
@@ -14,6 +26,6 @@ namespace Tests
 
         public int NextRoll { get; }
 
-        public IFrame Next => null;
+        public IFrame Next { get; set; }
     }
 }

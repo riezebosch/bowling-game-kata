@@ -8,12 +8,21 @@ namespace Tests
         [Fact]
         public void PerfectGameScore()
         {
-            var frame = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new Strike { Next = new StrikeBonus(10, 10) } } } } } } } } } };
             var game = new Game();
-            game.Add(frame);
+            game
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new Strike())
+                .Add(new StrikeBonus(10, 10));
 
-            int score = game.CalculateScore();
-            Assert.Equal(300, score);
+            Assert.Equal(300, game.CalculateScore());
         }
 
         [Fact]
@@ -26,5 +35,24 @@ namespace Tests
             Assert.Equal(273, game.CalculateScore());
         }
 
+        [Fact]
+        public void PointsSingleFrameEqualsScore()
+        {
+            var game = new Game();
+            game.Add(new Strike());
+
+            Assert.Equal(10, game.CalculateScore());
+        }
+
+        [Fact]
+        public void SubsequentFrameIncreasesScore()
+        {
+            var game = new Game();
+            game
+                .Add(new Strike())
+                .Add(new Strike());
+
+            Assert.Equal(30, game.CalculateScore());
+        }
     }
 }

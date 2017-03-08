@@ -9,13 +9,13 @@ namespace Tests
         public int NextRoll => 10 - FirstRoll;
 
         public IFrame Next { get; set; }
-        public Spare(int a)
+        public Spare(int pins)
         { 
-            if (a < 0 || a >= 10)
+            if (pins < 0 || pins >= 10)
             {
-                throw new ArgumentOutOfRangeException(nameof(a));
+                throw new ArgumentOutOfRangeException(nameof(pins));
             }
-            FirstRoll = a;
+            FirstRoll = pins;
         }
 
         public int Points => 10 + (Next?.FirstRoll ?? 0);
